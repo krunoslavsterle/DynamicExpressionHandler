@@ -7,8 +7,8 @@
     <ProjectGuid>{2CA26814-2708-4698-A4F6-46BCB82B430C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DynamicExpressionHandler</RootNamespace>
-    <AssemblyName>DynamicExpressionHandler</AssemblyName>
+    <RootNamespace>DynamicExpression.Core</RootNamespace>
+    <AssemblyName>DynamicExpression</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using DynamicExpression.Core;
 
 namespace TestExpression
 {
@@ -11,7 +12,7 @@ namespace TestExpression
     {
         public string GetUser(Expression<Func<User, bool>> filter)
         {
-            return DynamicExpressionHandler.DynamicExpressionHandler.GetDynamicQueryString((BinaryExpression)filter.Body);
+            return DynamicExpressionHandler.GetDynamicQueryString((BinaryExpression)filter.Body);
         }
     }
 }

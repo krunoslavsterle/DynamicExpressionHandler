@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace DynamicExpressionHandler
+namespace DynamicExpression.Core
 {
     public static class DynamicExpressionHandler
     {
