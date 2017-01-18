@@ -12,7 +12,7 @@ namespace TestExpression
     {
         public string GetUser(Expression<Func<User, bool>> filter)
         {
-            return DynamicExpressionHandler.GetDynamicQueryString((BinaryExpression)filter.Body);
+            return DynamicExpressionHandler.GetDynamicQueryString(filter.Body);
         }
     }
 }

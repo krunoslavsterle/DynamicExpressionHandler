@@ -16,12 +16,12 @@ namespace DynamicExpression.Core
         /// <summary>
         /// Gets the query string from expression.
         /// </summary>
-        /// <param name="expression">The expression.</param>
+        /// <param name="expressionBody">The expression body.</param>
         /// <returns>Query string from expression.</returns>
-        public static string GetDynamicQueryString(BinaryExpression expression)
+        public static string GetDynamicQueryString(Expression expressionBody)
         {
             dynamicQueryString = String.Empty;
-            HandleExpression(expression);
+            HandleExpression((BinaryExpression)expressionBody);
             return dynamicQueryString;
         }
 
