@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace TestExpression
 {
@@ -7,7 +9,9 @@ namespace TestExpression
         static void Main(string[] args)
         {
             var userRepository = new UserRepository();
-            var query = userRepository.GetUser(p => p.Name == "Some name" && (p.Description == "dsafsdfsdfs" || p.Age == 6 || p.Id == Guid.Empty));
+            var user = new User() { Age = 33, DateCreated = DateTime.Now, Description = "Description", Id = Guid.Empty, Name = "Namee", OwnerId = Guid.NewGuid() };
+            
+            var query = userRepository.GetUser(p => p.Name == user.Name && p.Age == user.Age || p.Description == user.Description);
 
             Console.WriteLine(query);
             Console.Read();

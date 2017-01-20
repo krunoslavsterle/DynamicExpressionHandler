@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace DynamicExpression.Core
 {
@@ -24,7 +26,7 @@ namespace DynamicExpression.Core
             HandleExpression((BinaryExpression)expressionBody);
             return dynamicQueryString;
         }
-
+        
         /// <summary>
         /// Handles the expression and generates query string.
         /// </summary>
@@ -58,13 +60,35 @@ namespace DynamicExpression.Core
         /// <returns></returns>
         private static string GetExpressionQueryString(BinaryExpression expression)
         {
+            // TODO: GetExpressionQueryString() - Handle more complex types.
+
             var leftOperand = expression.Left;
             var rightOperand = expression.Right;
 
             var propertyName = leftOperand.ToString().Split('.')[1];
-            var propertyValue = rightOperand.ToString().Replace("\"", "");
+            var propertyValue = GetExpressionPropertyValue((MemberExpression)rightOperand);
 
-            return String.Format("{0}{1}{2}", propertyName, GetOperand(expression.NodeType), propertyValue);
+            if (String.Equals(rightOperand.Type.Name, "String"))
+                return String.Format("{0} {1} \"{2}\"", propertyName, GetOperand(expression.NodeType), propertyValue);
+            else
+                return String.Format("{0} {1} {2}", propertyName, GetOperand(expression.NodeType), propertyValue);
+        }
+        
+        /// <summary>
+        /// Gets the property value from the expression.
+        /// </summary>
+        /// <param name="memberExpression">The member expression.</param>
+        /// <returns>Value.</returns>
+        private static string GetExpressionPropertyValue(MemberExpression memberExpression)
+        {
+            // TODO: GetExpressionPropertyValue() - in memory product caching.
+            MemberExpression objectExpression = (MemberExpression)memberExpression.Expression;
+            ConstantExpression objectConstant = (ConstantExpression)objectExpression.Expression;
+
+            object product = ((FieldInfo)objectExpression.Member).GetValue(objectConstant.Value);
+            object value = ((PropertyInfo)memberExpression.Member).GetValue(product, null);
+
+            return value.ToString();
         }
 
         /// <summary>
